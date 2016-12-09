@@ -78,59 +78,6 @@
     .error{
         border:1px solid red !important;
     }
-    
-    .error-notice {
-  margin: 5px 5px; /* Making sure to keep some distance from all side */
-}
-
-.oaerror {
-  width: 90%; /* Configure it fit in your design  */
-  margin: 0 auto; /* Centering Stuff */
-  background-color: #FFFFFF; /* Default background */
-  padding: 20px;
-  border: 1px solid #eee;
-  border-left-width: 5px;
-  border-radius: 3px;
-  margin: 0 auto;
-  font-family: 'Open Sans', sans-serif;
-  font-size: 16px;
-}
-
-.danger {
-  border-left-color: #d9534f; /* Left side border color */
-  background-color: rgba(217, 83, 79, 0.1); /* Same color as the left border with reduced alpha to 0.1 */
-}
-
-.danger strong {
-  color:  #d9534f;
-}
-
-.warning {
-  border-left-color: #f0ad4e;
-  background-color: rgba(240, 173, 78, 0.1);
-}
-
-.warning strong {
-  color: #f0ad4e;
-}
-
-.info {
-  border-left-color: #5bc0de;
-  background-color: rgba(91, 192, 222, 0.1);
-}
-
-.info strong {
-  color: #5bc0de;
-}
-
-.success {
-  border-left-color: #2b542c;
-  background-color: rgba(43, 84, 44, 0.1);
-}
-
-.success strong {
-  color: #2b542c;
-}
 </style>
 
 
@@ -148,12 +95,9 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-md-8">
-
-
-
                 <!-- POST -->
                 <div class="post">
-                    <form action="{{ url('/register')}}" class="form newtopic" method="post">
+                    <form action="{{ url('/register')}}" class="form newtopic" method="post" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <div class="postinfotop">
                             <h2>Create New Account</h2>
@@ -166,20 +110,16 @@
                                 <div class="posttext pull-left"><h3>Required Fields</h3></div>
                                 <div class="clearfix"></div>
                             </div>
-                            @if(count($errors)>0)
-                                <div class="row">
-                                    <div class="error-notice">
-                                        <div class="oaerror danger">
-                                          <ul>
-                                            @foreach ($errors->all() as $error)
-                                                <li>{{$error}}</li>
-                                            @endforeach
-                                          </ul>
-                                        </div>
-                                    </div>
+                            @if(count($errors) > 0)
+                                <div class="acccap">
+                                    <div class="userinfo pull-left">&nbsp;</div>
+                                    <ul class="posttext pull-left" style="color:red">
+                                        @foreach($errors->all() as $error)
+                                            <li>{{$error}}</li>
+                                        @endforeach
+                                    </ul>
                                 </div>
-                             @endif
-                            
+                            @endif
                             <div class="topwrap">
                                 <div class="userinfo pull-left">
                                     <div class="avatar">
@@ -188,31 +128,31 @@
                                     </div>
                                     <div class="imgsize"></div>
                                     <div style="width:51px;">
-                                        <button class="btn" style="position:relative;"><input style="font-size:24px;opacity:0;width:51px;position:absolute;left:0px;top:-1px;" type='file' name='avatar'  />Add</button>
+                                        <button class="btn {{ $errors->has('avatar_image') ? ' error' : '' }}" style="position:relative;"><input  style="font-size:24px;opacity:0;width:51px;position:absolute;left:0px;top:-1px;" type='file' name='avatar_image'  />Add</button>
                                     </div>
                                 </div>
                                 <div class="userinfo posttext pull-left">
                                     <div class="row">
                                         <div class="col-lg-6 col-md-6 error1">
-                                            <input type="text" placeholder="{{$errors->has('First_Name') ? $errors->first('First_Name') : 'First Name'}}"  value="{{ old('First_Name') }}" class="form-control {{ $errors->has('First_Name') ? ' error' : '' }}" name="First_Name" />
+                                            <input type="text" placeholder="First Name"  value="{{ old('first_name') }}" class="form-control {{ $errors->has('first_name') ? ' error' : '' }}" name="first_name" />
                                         </div>
                                         <div class="col-lg-6 col-md-6 error1">
-                                            <input type="text" placeholder="{{$errors->has('Last_Name') ? $errors->first('Last_Name') : 'Last Name'}}"  value="{{ old('Last_Name') }}" class="form-control {{ $errors->has('Last_Name') ? ' error' : '' }}" name="Last_Name" />
+                                            <input type="text" placeholder="Last Name"  value="{{ old('last_name') }}" class="form-control {{ $errors->has('last_name') ? ' error' : '' }}" name="last_name" />
                                         </div>
                                     </div>
                                     <div>
                                         <div class="row">
                                             <div class="col-lg-6 col-md-6 error1">
-                                                <input type="text" placeholder="{{$errors->has('username') ? $errors->first('username') : 'User Name'}}" class="form-control {{ $errors->has('username') ? ' error' : '' }}" name="username"/>
+                                                <input type="text" placeholder="User Name" value="{{ old('username') }}" class="form-control {{ $errors->has('username') ? ' error' : '' }}" name="username"/>
                                             </div>
                                             <div class="col-lg-6 col-md-6 error1">
-                                                <input type="text" placeholder="{{$errors->has('email') ? $errors->first('email') : 'Email'}}" value="{{ old('email') }}" class="form-control {{ $errors->has('password') ? ' error' : '' }}" name="email"/>
+                                                <input type="text" placeholder="Email" value="{{ old('email') }}" class="form-control {{ $errors->has('password') ? ' error' : '' }}" name="email"/>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-6 col-md-6 error1">
-                                            <input type="password" placeholder="{{$errors->has('password') ? $errors->first('password') : 'Password'}}" class="form-control {{ $errors->has('password') ? ' error' : '' }}" id="pass" name="password" />
+                                            <input type="password" placeholder="Password" class="form-control {{ $errors->has('password') ? ' error' : '' }}" id="pass" name="password" />
                                         </div>
                                         <div class="col-lg-6 col-md-6 error1">
                                             <input type="password" placeholder="Retype Password" class="form-control" id="pass2" name="password_confirmation" />
@@ -244,12 +184,6 @@
                         </div>
                     </form>
                 </div><!-- POST -->
-
-
-
-
-
-
             </div>
             <div class="col-lg-4 col-md-4">
 

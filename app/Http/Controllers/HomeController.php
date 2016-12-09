@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
+use App\User;
+use Request;
+use App\Http\Requests;
+use Illuminate\Support\Facades\Input;
+use Auth;
 class HomeController extends Controller
 {
     /**
@@ -25,4 +28,15 @@ class HomeController extends Controller
     {
         return view('home');
     }
+    
+    public function status(Request $request){
+        Request::ajax();
+        $status = Input::get('ajax_status');
+        if(User::where('id', Auth::user()->id)->update(['status' => $status])){
+            echo "ok";
+        };
+        
+    }
+    
+    
 }
