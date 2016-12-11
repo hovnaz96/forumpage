@@ -110,6 +110,11 @@
                                 <div class="posttext pull-left"><h3>Required Fields</h3></div>
                                 <div class="clearfix"></div>
                             </div>
+                            @if(session('status'))
+                                <div class="alert alert-success">
+                                    {{session('status')}}
+                                <div>
+                            @endif
                             @if(count($errors) > 0)
                                 <div class="acccap">
                                     <div class="userinfo pull-left">&nbsp;</div>

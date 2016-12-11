@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\User;
 use Validator;
 use Request;
+use Illuminate\Support\Facades\Mail;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Str;
@@ -104,10 +105,11 @@ use RegistersUsers;
                     'facebook_id' => $socialUser->getId(),
                     'firstname' => $socialUser->getName(),
                     'lastname' => '',
-                    'email' => $socialUser->getEmail(),
+                    'fb_email' => $socialUser->getEmail(),
                     'password' => '',
                     'avatar_user' => $socialUser->getAvatar(),
-            ]);    
+            ]);
+            $user = User::where('facebook_id',$socialUser->getId())->first();
         }
         if($user == null){
             return redirect()->to('/login');
@@ -115,7 +117,32 @@ use RegistersUsers;
             auth()->login($user);
             return redirect()->to('/home');
         }
-        // $user->token;
+    }
+    
+    public function register(\Illuminate\Http\Request $request)
+    {
+        $this->validator($request->all())->validate();
+        event(new \Illuminate\Auth\Events\Registered($user = $this->create($request->all())));
+        
+        Mail::to($user->email)->send(new \App\Mail\ConfirmationAccount($user));
+        
+        return back()->with('status', 'Please confirm your email address.');
+        // $this->guard()->login($user);
+        // return redirect($this->redirectPath());
+    }
+    /**
+     * Confirm a user's email address.
+     *
+     * @param  string $token
+     * @return mixed
+     */
+    public function confirmEmail($token)
+    {
+        if(Auth::user()){
+            return redirect('/home');
+        }
+        User::whereToken($token)->firstOrFail()->confirmEmail();
+        return redirect('login')->with('status', 'You are now confirmed. Please login.');
     }
 
 }

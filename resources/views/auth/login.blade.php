@@ -87,6 +87,11 @@
 
                 <!-- POST -->
                 <div class="post">
+                    @if(session('status'))
+                                <div class="alert alert-success">
+                                    {{session('status')}}
+                                <div>
+                            @endif
 
 
                     <form action="{{ url('/login') }}" class="form newtopic" method="post">

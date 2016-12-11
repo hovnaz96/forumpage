@@ -4,23 +4,21 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/D:/foruml/database/migrations/2014_10_12_000000_create_users_table.php</file>
-            <file>file:/D:/foruml/app/Http/Controllers/Auth/LoginController.php</file>
             <file>file:/D:/foruml/config/app.php</file>
-            <file>file:/D:/foruml/public/js/init.js</file>
+            <file>file:/D:/foruml/resources/views/auth/passwords/email.blade.php</file>
+            <file>file:/D:/foruml/resources/views/auth/passwords/reset.blade.php</file>
             <file>file:/D:/foruml/resources/views/auth/login.blade.php</file>
-            <file>file:/D:/foruml/app/Http/Controllers/Auth/RegisterController.php</file>
             <file>file:/D:/foruml/.env</file>
-            <file>file:/D:/foruml/public/uploads/1481304494.gif</file>
+            <file>file:/D:/foruml/app/Http/Controllers/Auth/RegisterController.php</file>
             <file>file:/D:/foruml/resources/views/home.blade.php</file>
             <file>file:/D:/foruml/app/User.php</file>
             <file>file:/D:/foruml/resources/views/layouts/maket.blade.php</file>
             <file>file:/D:/foruml/resources/views/auth/register.blade.php</file>
             <file>file:/D:/foruml/resources/views/layouts/app.blade.php</file>
-            <file>file:/D:/foruml/resources/views/welcome.blade.php</file>
             <file>file:/D:/foruml/composer.json</file>
-            <file>file:/D:/foruml/public/css/custom.css</file>
-            <file>file:/D:/foruml/app/Http/Controllers/HomeController.php</file>
+            <file>file:/D:/foruml/config/services.php</file>
             <file>file:/D:/foruml/routes/web.php</file>
+            <file>file:/D:/foruml/config/database.php</file>
         </group>
     </open-files>
 </project-private>
